@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Information Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            max-width: 90%;
+            text-align: center;
+        }
+        .modal-close-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .modal-close-btn:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <div class="w-full max-w-2xl bg-white p-6 sm:p-10 rounded-3xl shadow-2xl">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-4">Drug Information Form</h1>
+        <p class="text-center text-gray-500 mb-8 max-w-md mx-auto">Please fill out the form below to provide information about a specific drug. All fields are required unless noted.</p>
+        <form id="drugForm" class="space-y-6">
+            <div>
+                <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age <span class="text-red-500">*</span></label>
+                <select id="age" name="age" required
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200">
+                    <option value="" disabled selected>Select an age</option>
+                </select>
+            </div>
+            <div>
+                <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender <span class="text-red-500">*</span></label>
+                <select id="gender" name="gender" required
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200">
+                    <option value="" disabled selected>Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+            <div>
+                <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Chronic Disease Category <span class="text-red-500">*</span></label>
+                <select id="category" name="category" required
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200">
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="cardiovascular">Cardiovascular Diseases</option>
+                    <option value="diabetes">Diabetes</option>
+                    <option value="respiratory">Respiratory Diseases</option>
+                    <option value="autoimmune">Autoimmune Diseases</option>
+                    <option value="neurological">Neurological Disorders</option>
+                    <option value="mental-health">Mental Health Conditions</option>
+                </select>
+            </div>
+            <div>
+                <label for="drugName" class="block text-sm font-medium text-gray-700 mb-1">Drug Name <span class="text-red-500">*</span></label>
+                <select id="drugName" name="drugName" required
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200">
+                    <option value="" disabled selected>Select a category first</option>
+                </select>
+            </div>
+            <div>
+                <label for="dosage" class="block text-sm font-medium text-gray-700 mb-1">Dosage</label>
+                <input type="text" id="dosage" name="dosage"
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    placeholder="e.g., 200mg">
+            </div>
+            <div>
+                <label for="frequency" class="block text-sm font-medium text-gray-700 mb-1">Frequency</label>
+                <input type="text" id="frequency" name="frequency"
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    placeholder="e.g., Once a day">
+            </div>
+            <div>
+                <label for="reason" class="block text-sm font-medium text-gray-700 mb-1">Reason for Use</label>
+                <textarea id="reason" name="reason" rows="4"
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    placeholder="Describe why this drug is being used."></textarea>
+            </div>
+            <div>
+                <label for="sideEffects" class="block text-sm font-medium text-gray-700 mb-1">Noticed Side Effects</label>
+                <textarea id="sideEffects" name="sideEffects" rows="4"
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    placeholder="List any side effects experienced."></textarea>
+            </div>
+            <div>
+                <label for="dateStarted" class="block text-sm font-medium text-gray-700 mb-1">Date Started</label>
+                <input type="date" id="dateStarted" name="dateStarted"
+                    class="mt-1 block w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200">
+            </div>
+            <div class="flex items-start">
+                <input type="checkbox" id="disclaimer" name="disclaimer" required
+                    class="mt-1 h-4 w-4 text-blue-600 rounded-md border-gray-300 focus:ring-blue-500">
+                <label for="disclaimer" class="ml-2 block text-sm text-gray-700">I acknowledge that this form is for informational purposes only and does not constitute medical advice. <span class="text-red-500">*</span></label>
+            </div>
+            <div class="text-center">
+                <button type="submit"
+                    class="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-transform transform hover:scale-105">
+                    Submit Information
+                </button>
+            </div>
+        </form>
+    </div>
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Submission Successful!</h2>
+            <p class="text-gray-600">Please check your email client. A new email with your form data should be ready to send.</p>
+            <button id="closeSuccessModalBtn" class="modal-close-btn">Close</button>
+        </div>
+    </div>
+    <div id="errorModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">Error</h2>
+            <p class="text-gray-600" id="errorMessage"></p>
+            <button id="closeErrorModalBtn" class="modal-close-btn">Close</button>
+        </div>
+    </div>
+    <script>
+        const drugData = {
+            "cardiovascular": ["Amlodipine", "Atorvastatin", "Lisinopril", "Metoprolol", "Warfarin", "Enalapril", "Losartan", "Hydrochlorothiazide", "Furosemide", "Digoxin", "Diltiazem", "Nifedipine", "Simvastatin", "Rosuvastatin", "Clopidogrel", "Apixaban", "Dabigatran", "RivaroXaban"],
+            "diabetes": ["Metformin", "Insulin", "Glipizide", "Januvia", "Victoza", "Glimepiride", "Pioglitazone", "Sitagliptin", "Liraglutide", "Semaglutide", "Canagliflozin", "Dapagliflozin", "Empagliflozin"],
+            "respiratory": ["Albuterol", "Fluticasone", "Singulair", "Theophylline", "Symbicort", "Spiriva", "Advair", "Tiotropium", "Salmeterol", "Ipratropium", "Montelukast", "Budesonide", "Formoterol"],
+            "autoimmune": ["Humira", "Remicade", "Prednisone", "Methotrexate", "Enbrel", "Orencia", "Rituximab", "Azathioprine", "Cyclosporine", "Hydroxychloroquine", "Sulfasalazine"],
+            "neurological": ["Levodopa", "Donepezil", "Gabapentin", "Memantine", "Pregabalin", "Carbidopa", "Rivastigmine", "Galantamine", "Topiramate", "Lamotrigine", "Valproate", "Duloxetine", "Amitriptyline", "Fingolimod", "Glatiramer acetate"],
+            "mental-health": ["Sertraline", "Fluoxetine", "Lexapro", "Citalopram", "Wellbutrin", "Escitalopram", "Paroxetine", "Venlafaxine", "Duloxetine", "Quetiapine", "Risperidone", "Aripiprazole", "Olanzapine", "Lithium"]
+        };
+        const form = document.getElementById('drugForm');
+        const ageSelect = document.getElementById('age');
+        const categorySelect = document.getElementById('category');
+        const drugNameSelect = document.getElementById('drugName');
+        const successModal = document.getElementById('successModal');
+        const errorModal = document.getElementById('errorModal');
+        const closeSuccessModalBtn = document.getElementById('closeSuccessModalBtn');
+        const closeErrorModalBtn = document.getElementById('closeErrorModalBtn');
+        function populateAgeDropdown() {
+            for (let age = 1; age <= 120; age++) {
+                const option = document.createElement('option');
+                option.value = age;
+                option.textContent = age;
+                ageSelect.appendChild(option);
+            }
+        }
+        function populateDrugDropdown(category) {
+            drugNameSelect.innerHTML = '';
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "Select a drug";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            drugNameSelect.appendChild(defaultOption);
+            if (category && drugData[category]) {
+                const sortedDrugs = drugData[category].sort();
+                sortedDrugs.forEach(drug => {
+                    const option = document.createElement('option');
+                    option.value = drug;
+                    option.textContent = drug;
+                    drugNameSelect.appendChild(option);
+                });
+            }
+        }
+        categorySelect.addEventListener('change', (event) => {
+            const selectedCategory = event.target.value;
+            populateDrugDropdown(selectedCategory);
+        });
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const drugName = document.getElementById('drugName').value;
+            const disclaimer = document.getElementById('disclaimer').checked;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const category = document.getElementById('category').value;
+            const dosage = document.getElementById('dosage').value.trim();
+            if (age === '' || gender === '' || category === '' || drugName === '' || !disclaimer) {
+                showErrorModal('Please fill in all required fields and accept the disclaimer.');
+                return;
+            }
+            if (dosage && !/^\d+\s*(mg|g|ml|tablets|pills)$/i.test(dosage)) {
+                showErrorModal('Please enter a valid dosage (e.g., 100mg, 2 tablets).');
+                return;
+            }
+            const formData = {
+                age: age,
+                gender: gender,
+                category: category,
+                drugName: drugName,
+                dosage: dosage,
+                frequency: document.getElementById('frequency').value.trim(),
+                reason: document.getElementById('reason').value.trim(),
+                sideEffects: document.getElementById('sideEffects').value.trim(),
+                dateStarted: document.getElementById('dateStarted').value
+            };
+            let emailBody = "Drug Information Form Submission:\n\n";
+            for (const key in formData) {
+                if (formData[key]) {
+                    const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                    emailBody += `${label}: ${formData[key]}\n`;
+                }
+            }
+            const subject = "Drug Information Form Submission";
+            const mailtoLink = `mailto:fmbanafa@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            window.location.href = mailtoLink;
+            successModal.style.display = 'flex';
+            form.reset();
+            categorySelect.value = '';
+            populateDrugDropdown('');
+        });
+        closeSuccessModalBtn.addEventListener('click', function() {
+            successModal.style.display = 'none';
+        });
+        closeErrorModalBtn.addEventListener('click', function() {
+            errorModal.style.display = 'none';
+        });
+        function showErrorModal(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorModal.style.display = 'flex';
+        }
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                successModal.style.display = 'none';
+                errorModal.style.display = 'none';
+            }
+        });
+        populateAgeDropdown();
+    </script>
+</body>
+</html>
